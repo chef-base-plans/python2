@@ -15,6 +15,14 @@ pkg_upstream_url="https://www.python.org"
 pkg_dirname="${pkg_distname}-${pkg_version}"
 pkg_source="https://www.python.org/ftp/python/${pkg_version}/${pkg_dirname}.tgz"
 pkg_shasum="da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814"
+pkg_build_deps=(
+  core/coreutils
+  core/diffutils
+  core/gcc
+  core/linux-headers
+  core/make
+  core/util-linux
+)
 
 pkg_interpreters=(bin/python bin/python2 bin/python2.7)
 
