@@ -1,6 +1,4 @@
 # shellcheck disable=SC2148,SC1091
-source ../python/plan.sh
-
 # TODO: Should this be renamed to python27 in accordance with RFC 0003?
 # If so, the python2 namespace would need to be deprecated per RFC 0007
 pkg_name=python2
@@ -15,14 +13,10 @@ pkg_upstream_url="https://www.python.org"
 pkg_dirname="${pkg_distname}-${pkg_version}"
 pkg_source="https://www.python.org/ftp/python/${pkg_version}/${pkg_dirname}.tgz"
 pkg_shasum="da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814"
-pkg_build_deps=(
-  core/coreutils
-  core/diffutils
-  core/gcc
-  core/linux-headers
-  core/make
-  core/util-linux
-)
+
+pkg_bin_dirs=(bin)
+pkg_lib_dirs=(lib)
+pkg_include_dirs=(include)
 
 pkg_deps=(
   core/bzip2
@@ -38,7 +32,21 @@ pkg_deps=(
   core/zlib
 )
 
+pkg_build_deps=(
+  core/coreutils
+  core/diffutils
+  core/gcc
+  core/linux-headers
+  core/make
+  core/util-linux
+)
+
 pkg_interpreters=(bin/python bin/python2 bin/python2.7)
+
+do_prepare() {
+  sed -i.bak 's/#zlib/zlib/' Modules/Setup.dist
+  sed -i -re "/(SSL=|_ssl|-DUSE_SSL|-lssl).*/ s|^#||" Modules/Setup.dist
+}
 
 do_build() {
     # TODO: We should build with `--enable-optimizations`
@@ -58,4 +66,10 @@ do_install() {
 
   # Remove idle as we are not building with Tk/x11 support so it is useless
   rm -vf "$pkg_prefix/bin/idle"
+
+  platlib=$(python -c "import sysconfig;print(sysconfig.get_path('platlib'))")
+  cat <<EOF > "$platlib/_manylinux.py"
+# Disable binary manylinux1(CentOS 5) wheel support
+manylinux1_compatible = False
+EOF
 }
