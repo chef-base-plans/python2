@@ -58,10 +58,4 @@ do_install() {
 
   # Remove idle as we are not building with Tk/x11 support so it is useless
   rm -vf "$pkg_prefix/bin/idle"
-
-  platlib=$(python -c "import sysconfig;print(sysconfig.get_path('platlib'))")
-  cat <<EOF > "$platlib/_manylinux.py"
-# Disable binary manylinux1(CentOS 5) wheel support
-manylinux1_compatible = False
-EOF
 }
