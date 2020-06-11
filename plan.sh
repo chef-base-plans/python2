@@ -24,6 +24,20 @@ pkg_build_deps=(
   core/util-linux
 )
 
+pkg_deps=(
+  core/bzip2
+  core/expat
+  core/gcc-libs
+  core/gdbm
+  core/glibc
+  core/libffi
+  core/ncurses
+  core/openssl
+  core/readline
+  core/sqlite
+  core/zlib
+)
+
 pkg_interpreters=(bin/python bin/python2 bin/python2.7)
 
 do_build() {
