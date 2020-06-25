@@ -1,1 +1,19 @@
 plan_name : "python2"
+
+allow_list :
+  - "pip2.7"
+  - "easy_install-2.7"
+  - "smtpd.py"
+  - "pip"
+  - "python2.7"
+  - "python"
+  - "easy_install"
+  - "python2"
+  - "pip2"
+
+block_list :
+  - "python2-config"
+  - "python-config"
+  - "pydoc"
+  - "python2.7-config"
+  - "2to3"
