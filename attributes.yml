@@ -1,15 +1,17 @@
 plan_name : "python2"
 
-allow_list :
+allow_list_stdout :
   - "pip2.7"
   - "easy_install-2.7"
-  - "smtpd.py"
   - "pip"
-  - "python2.7"
-  - "python"
   - "easy_install"
-  - "python2"
   - "pip2"
+
+allow_list_stderr :
+  - "smtpd.py"
+  - "python2"
+  - "python"
+  - "python2.7"
 
 block_list :
   - "python2-config"
