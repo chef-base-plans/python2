@@ -24,7 +24,6 @@ control 'core-plans-python2' do
   python_pkg_ident = command("#{hab_path} pkg path #{plan_ident}")
   describe python_pkg_ident do
     its('stdout') { should_not be_empty }
-    its('stderr') { should be_empty } 
     its('exit_status') { should eq 0 }
   end
   python_pkg_ident = python_pkg_ident.stdout.strip
@@ -38,14 +37,13 @@ control 'core-plans-python2' do
   describe command("#{python_pkg_ident}/bin/python -c \"print('hello world')\"") do
     its('stdout') { should_not be_empty }
     its('stdout') { should match /hello world/ }
-    its('stderr') { should be_empty } 
     its('exit_status') { should eq 0 }
   end
 end
 
 control 'core-plans-binaries' do
   impact 1.0
-  title 'Ensure python works'
+  title 'Ensure binaries work'
   desc '
   To check the binaries that python installs, we first locate the path where they are installed.
   Using this path we can then check that the binaries exist, are not empty and are executable.
@@ -55,7 +53,6 @@ control 'core-plans-binaries' do
   hab_pkg_path = command("#{hab_path} pkg path #{plan_ident}")
   describe hab_pkg_path do
     its('stdout') { should_not be_empty }
-    its('stderr') { should be_empty }
     its('exit_status') { should eq 0 }
   end
   hab_pkg_path = hab_pkg_path.stdout.strip
@@ -73,7 +70,6 @@ control 'core-plans-binaries' do
     describe command("#{hab_pkg_path}/bin/#{binary} --version") do
       its('stdout') { should_not be_empty }
       its('stdout') { should match /([0-9](\.)?){2,}/ }
-      its('stderr') { should be_empty }
       its('exit_status') { should eq 0 }
     end
   end
