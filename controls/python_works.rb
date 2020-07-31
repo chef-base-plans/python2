@@ -2,7 +2,6 @@ title 'Tests to confirm python2 works as expected'
 
 plan_name = input('plan_name', value: 'python2')
 plan_ident = "#{ENV['HAB_ORIGIN']}/#{plan_name}"
-hab_path = input('hab_path', value: '/tmp/hab')
 allow_list_stdout = input('allow_list_stdout')
 allow_list_stderr = input('allow_list_stderr')
 block_list = input('block_list')
@@ -21,7 +20,7 @@ control 'core-plans-python2' do
     $ python -c "print(\'hello world\')"
     hello world
   '
-  python_pkg_ident = command("#{hab_path} pkg path #{plan_ident}")
+  python_pkg_ident = command("hab pkg path #{plan_ident}")
   describe python_pkg_ident do
     its('stdout') { should_not be_empty }
     its('exit_status') { should eq 0 }
@@ -50,7 +49,7 @@ control 'core-plans-binaries' do
   Then we run a version check to ensure the binary works and is of the correct version.
   '
 
-  hab_pkg_path = command("#{hab_path} pkg path #{plan_ident}")
+  hab_pkg_path = command("hab pkg path #{plan_ident}")
   describe hab_pkg_path do
     its('stdout') { should_not be_empty }
     its('exit_status') { should eq 0 }
