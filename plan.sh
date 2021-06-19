@@ -49,16 +49,16 @@ do_prepare() {
 }
 
 do_build() {
-    # TODO: We should build with `--enable-optimizations`
-    ./configure --prefix="$pkg_prefix" \
-                --enable-shared \
-                --enable-unicode=ucs4 \
-                --with-threads \
-                --with-system-expat \
-                --with-system-ffi \
-                --with-ensurepip
+  # TODO: We should build with `--enable-optimizations`
+  ./configure --prefix="$pkg_prefix" \
+              --enable-shared \
+              --enable-unicode=ucs4 \
+              --with-threads \
+              --with-system-expat \
+              --with-system-ffi \
+              --with-ensurepip
 
-    make
+  make
 }
 
 do_check() {
