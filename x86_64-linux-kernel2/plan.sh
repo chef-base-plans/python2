@@ -28,7 +28,7 @@ pkg_deps=(
   core/ncurses
   core/openssl
   core/readline
-  core/sqlite/3.35.1
+  core/sqlite
   core/zlib
 )
 
